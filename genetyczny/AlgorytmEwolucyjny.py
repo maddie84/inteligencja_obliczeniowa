@@ -1,5 +1,5 @@
 import numpy as np
-from functions import *
+from funkcje_wizualizacja.functions import *
 
 # Algorytm ewolucyjny
 def evolutionary_algorithm(objective_function, num_of_ind, num_of_gen, k, pc, pm, bounds, dim):
@@ -100,10 +100,10 @@ k = int(round(0.3*num_of_ind, 0))   # liczba osobnikow do turnieju
 pc = 0.95   # prawdopodobienstwo krzyzowania
 pm = 0.05   # prawdopodobienstwo mutacji 
 bounds = [(-5.12, 5.12)] * 10  # 10 wymiarów dla funkcji sphere_function
-dim = 3  # liczba zmiennych decyzyjnych do zwrócenia jako rozwiązanie
+dim = 5  # liczba zmiennych decyzyjnych do zwrócenia jako rozwiązanie
 
-func = levy_function
-# func = perm_function
+# func = levy_function
+func = perm_function
 # func = schwefel_function
 # func = sphere_function
 # func = ackley_function
