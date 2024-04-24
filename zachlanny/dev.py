@@ -66,15 +66,35 @@ def plot_route(route, cities):
               head_width=0.5, length_includes_head=True)
     plt.show()
 
-#cities = read_lines('data/lin105.tsp')
-# cities = read_lines('data/pr1002.tsp')
-# cities = read_lines('data/pr2392.tsp')
-# cities = read_lines('data/rl5934.tsp')
-cities = read_lines('data/tsp225.tsp')
+cities1 = read_lines('data/lin105.tsp')
+cities2 = read_lines('data/pr1002.tsp')
+cities3 = read_lines('data/pr2392.tsp')
+cities4 = read_lines('data/rl5934.tsp')
+cities5 = read_lines('data/tsp225.tsp')
 
-greedy_path, total_distance, execution_time = greedy_tsp(cities)
+greedy_path1, total_distance1, execution_time1 = greedy_tsp(cities1)
+greedy_path2, total_distance2, execution_time2 = greedy_tsp(cities2)
+greedy_path3, total_distance3, execution_time3 = greedy_tsp(cities3)
+greedy_path4, total_distance4, execution_time4 = greedy_tsp(cities4)
+greedy_path5, total_distance5, execution_time5 = greedy_tsp(cities5)
 
-plot_route(greedy_path, cities)
+plot_route(greedy_path1, cities1)
+plot_route(greedy_path2, cities2)
+plot_route(greedy_path3, cities3)
+plot_route(greedy_path4, cities4)
+plot_route(greedy_path5, cities5)
 
-print("Długość trasy:", total_distance)
-print("Czas wykonania:", execution_time, "sekund")
+print("Długość trasy:", total_distance1)
+print("Czas wykonania:", execution_time1, "sekund")
+
+print("Długość trasy:", total_distance2)
+print("Czas wykonania:", execution_time2, "sekund")
+
+print("Długość trasy:", total_distance3)
+print("Czas wykonania:", execution_time3, "sekund")
+
+print("Długość trasy:", total_distance4)
+print("Czas wykonania:", execution_time4, "sekund")
+
+print("Długość trasy:", total_distance5)
+print("Czas wykonania:", execution_time5, "sekund")

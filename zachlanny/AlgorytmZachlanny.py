@@ -1,3 +1,4 @@
+import os
 import math
 import time
 import matplotlib.pyplot as plt
@@ -26,6 +27,7 @@ def read_lines(file_path):
     return cities
 
 def greedy_tsp(cities):
+    start_time = time.time()  # Początkowy czas wykonania funkcji
     visited = [False] * len(cities)
     path = [cities[0]]
     visited[0] = True
@@ -45,9 +47,11 @@ def greedy_tsp(cities):
         path.append(closest_city)
         visited[closest_city[0] - 1] = True
 
-    return path
+    total_distance = sum(distance(path[i], path[(i + 1) % len(path)]) for i in range(len(path)))  # Obliczanie długości trasy
+    execution_time = time.time() - start_time  # Obliczanie czasu wykonania funkcji
+    return path, total_distance, execution_time
 
-def plot_route(route, cities):
+def plot_route(route, cities, file_name):
     x = [city[1] for city in cities]
     y = [city[2] for city in cities]
     plt.figure(figsize=(8, 6))
@@ -61,25 +65,30 @@ def plot_route(route, cities):
               route[0][1] - route[-1][1], 
               route[0][2] - route[-1][2], 
               head_width=0.5, length_includes_head=True)
-    plt.show()
+    plt.savefig(file_name)  # Zapisz wykres do pliku obrazu
+    plt.close()  # Zamknij bieżący wykres
 
-def measure_total_execution_time(file_path):
-    start_time = time.time()  # Czas rozpoczęcia programu
+data_dir = 'data'
 
-    cities = read_lines(file_path)
-    greedy_path = greedy_tsp(cities)
+program_start_time = time.time()
 
-    end_algorithm_time = time.time()  # Czas zakończenia działania algorytmu
-    total_algorithm_time = end_algorithm_time - start_time  # Całkowity czas działania algorytmu
+for filename in os.listdir(data_dir):
+    if filename.endswith('.tsp'):
+        # Wczytaj dane z pliku
+        cities = read_lines(os.path.join(data_dir, filename))
+        # Wykonaj algorytm TSP
+        greedy_path, total_distance, execution_time = greedy_tsp(cities)
+        # Wygeneruj nazwę pliku dla wykresu
+        plot_file_name = os.path.splitext(filename)[0] + '_route.png'
+        # Wygeneruj wykres trasy i zapisz go do pliku obrazu
+        plot_route(greedy_path, cities, plot_file_name)
 
-    plot_route(greedy_path, cities)
+        # Wypisz informacje o wynikach do pliku tekstowego
+        with open('results.txt', 'a') as file:
+            file.write('File: {}\n'.format(filename))
+            file.write('Total distance: {}\n'.format(total_distance))
+            file.write('Execution time: {} seconds\n'.format(execution_time))
+            file.write('Route plot: {}\n\n'.format(plot_file_name))
 
-    end_display_time = time.time()  # Czas zakończenia wyświetlania trasy
-    total_execution_time = end_display_time - start_time  # Całkowity czas działania programu do wyświetlenia trasy
-
-    return total_algorithm_time, total_execution_time
-
-file_path = 'lin105.tsp'
-total_algorithm_time, total_execution_time = measure_total_execution_time(file_path)
-print("Całkowity czas działania algorytmu:", total_algorithm_time, "sekund")
-print("Całkowity czas działania programu do wyświetlenia trasy:", total_execution_time, "sekund")
+total_program_time = time.time() - program_start_time
+print("Total program time:", total_program_time, "seconds")

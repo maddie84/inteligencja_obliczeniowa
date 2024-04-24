@@ -1,0 +1,25 @@
+File: lin105.tsp
+Total distance: 20362.757417265282
+Execution time: 0.003987550735473633 seconds
+Route plot: lin105_route.png
+
+File: pr1002.tsp
+Total distance: 315596.5873942419
+Execution time: 0.43786001205444336 seconds
+Route plot: pr1002_route.png
+
+File: pr2392.tsp
+Total distance: 461207.4897996167
+Execution time: 2.678044557571411 seconds
+Route plot: pr2392_route.png
+
+File: rl5934.tsp
+Total distance: 683805.9981669739
+Execution time: 14.812525510787964 seconds
+Route plot: rl5934_route.png
+
+File: tsp225.tsp
+Total distance: 4828.9966828442675
+Execution time: 0.01897597312927246 seconds
+Route plot: tsp225_route.png
+
