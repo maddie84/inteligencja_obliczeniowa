@@ -79,7 +79,7 @@ for filename in os.listdir(data_dir):
         cities = read_lines(os.path.join(data_dir, filename))
         greedy_path, total_distance, execution_time = greedy_tsp(cities)
         plot_file_name = os.path.splitext(filename)[0] + '_route.png'
-        plot_route(greedy_path, cities, plot_file_name)
+        #plot_route(greedy_path, cities, plot_file_name)
 
         with open('results.txt', 'a') as file:
             file.write('File: {}\n'.format(filename))
