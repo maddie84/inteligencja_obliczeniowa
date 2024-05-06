@@ -1,3 +1,5 @@
+# Julia Duch, Magda Jaźwińska
+
 import os
 import math
 import time
@@ -27,7 +29,7 @@ def read_lines(file_path):
     return cities
 
 def greedy_tsp(cities):
-    start_time = time.time()  # Początkowy czas wykonania funkcji
+    start_time = time.time()
     visited = [False] * len(cities)
     path = [cities[0]]
     visited[0] = True
@@ -47,8 +49,8 @@ def greedy_tsp(cities):
         path.append(closest_city)
         visited[closest_city[0] - 1] = True
 
-    total_distance = sum(distance(path[i], path[(i + 1) % len(path)]) for i in range(len(path)))  # Obliczanie długości trasy
-    execution_time = time.time() - start_time  # Obliczanie czasu wykonania funkcji
+    total_distance = sum(distance(path[i], path[(i + 1) % len(path)]) for i in range(len(path)))
+    execution_time = time.time() - start_time
     return path, total_distance, execution_time
 
 def plot_route(route, cities, file_name):
@@ -65,8 +67,8 @@ def plot_route(route, cities, file_name):
               route[0][1] - route[-1][1], 
               route[0][2] - route[-1][2], 
               head_width=0.5, length_includes_head=True)
-    plt.savefig(file_name)  # Zapisz wykres do pliku obrazu
-    plt.close()  # Zamknij bieżący wykres
+    plt.savefig(file_name)
+    plt.close()
 
 data_dir = 'data'
 
@@ -74,16 +76,11 @@ program_start_time = time.time()
 
 for filename in os.listdir(data_dir):
     if filename.endswith('.tsp'):
-        # Wczytaj dane z pliku
         cities = read_lines(os.path.join(data_dir, filename))
-        # Wykonaj algorytm TSP
         greedy_path, total_distance, execution_time = greedy_tsp(cities)
-        # Wygeneruj nazwę pliku dla wykresu
         plot_file_name = os.path.splitext(filename)[0] + '_route.png'
-        # Wygeneruj wykres trasy i zapisz go do pliku obrazu
         plot_route(greedy_path, cities, plot_file_name)
 
-        # Wypisz informacje o wynikach do pliku tekstowego
         with open('results.txt', 'a') as file:
             file.write('File: {}\n'.format(filename))
             file.write('Total distance: {}\n'.format(total_distance))
@@ -92,6 +89,5 @@ for filename in os.listdir(data_dir):
 
 total_program_time = time.time() - program_start_time
 
-# Zapisz całkowity czas trwania programu do pliku
 with open('results.txt', 'a') as file:
     file.write('Total program time: {} seconds\n'.format(total_program_time))
