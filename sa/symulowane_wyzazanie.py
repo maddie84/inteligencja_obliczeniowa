@@ -14,7 +14,7 @@ def load_tsp_file(file_path: str) -> List[Tuple[int, int]]:
             coords.append((int(parts[0]), float(parts[1]), float(parts[2])))
         return [(int(coord[1]), int(coord[2])) for coord in coords]
 
-# Calculate the total distance of the tour
+
 def calculate_total_distance(tour: List[int], coords: List[Tuple[int, int]]) -> float:
     total_distance = 0
     for i in range(len(tour)):
@@ -23,7 +23,7 @@ def calculate_total_distance(tour: List[int], coords: List[Tuple[int, int]]) -> 
         total_distance += math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
     return total_distance
 
-# Different operators for changing the tour
+
 def swap_cities(tour: List[int]) -> List[int]:
     new_tour = tour[:]
     i, j = random.sample(range(len(tour)), 2)
@@ -70,8 +70,8 @@ def simulated_annealing(coords: List[Tuple[int, int]], initial_temp: float, fina
         current_temp *= alpha
         iteration += 1
         
-        # Wizualizacja co 100 iteracji
-        if iteration % 100 == 0:
+        # Wizualizacja co 500 iteracji
+        if iteration % 500 == 0:
             plt.clf()
             plt.scatter([coords[i][0] for i in tour], [coords[i][1] for i in tour], c='red')
             for i in range(len(tour)):
@@ -86,11 +86,13 @@ def simulated_annealing(coords: List[Tuple[int, int]], initial_temp: float, fina
 
 
 def main():
-    coords = load_tsp_file('data/ts225.tsp')
-    #coords = load_tsp_file('data/lin105.tsp')
-    #coords = load_tsp_file('data/tsp225.tsp')
-    #coords = load_tsp_file('data/pr1002.tsp') 
-    #coords = load_tsp_file('data/bier127.tsp')
+
+    # Dla tras o co najmniej 300 punktach:
+    # coords = load_tsp_file('data/pr1002.tsp') 
+    # coords = load_tsp_file('data/pr2392.tsp')
+    # coords = load_tsp_file('data/u1060.tsp')
+    # coords = load_tsp_file('data/ali535.tsp')
+    coords = load_tsp_file('data/lin318.tsp')
 
     initial_temp = 10000
     final_temp = 1
@@ -101,7 +103,6 @@ def main():
     print(f'Best distance: {best_distance}')
     print(f'Best tour: {best_tour}')
 
-    # Final visualization
     plt.scatter([coords[i][0] for i in best_tour], [coords[i][1] for i in best_tour], c='red')
     for i in range(len(best_tour)):
         x1, y1 = coords[best_tour[i - 1]]
